@@ -1,0 +1,51 @@
+openapi: 3.0.0
+info:
+  title: STD23087 - TD1
+  description: API pour gérer les clients dans le système STD23087.
+  version: 1.0.0
+servers:
+  - url: https://localhost.std23087.com
+    description: Serveur de développement local
+paths:
+  /customers:
+    get:
+      summary: Obtenir la liste des clients
+      description: Cette opération renvoie une liste de tous les clients enregistrés dans le système.
+      responses:
+        '200':
+          description: Une liste de clients a été renvoyée avec succès.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+              examples:
+                example-1:
+                  summary: Exemple de réponse avec plusieurs clients
+                  value: 
+                    - name: Za
+                      age: 30
+                    - name: Tsika
+                      age: 25
+                    - name: Izy
+                      age: 35
+        '500':
+          description: Erreur interne du serveur
+
+components:
+  schemas:
+    Customer:
+      type: object
+      required:
+        - name
+        - age
+      properties: 
+        name: 
+          type: string
+          description: Le nom complet du client
+          example: "Za"
+        age:
+          type: integer
+          description: L'âge du client
+          example: 30
